@@ -3,7 +3,6 @@ module.exports = ({ env }) => ({
   url: env('PUBLIC_URL', env('RENDER_EXTERNAL_URL', '')),
   host: '0.0.0.0',
   port: env.int('PORT', 1337),
-  app: { keys: env.array('APP_KEYS') },
+  app: { keys: env.array('APP_KEYS') },    // <- IMPORTANT
   admin: { auth: { secret: env('ADMIN_JWT_SECRET') } },
 });
-
