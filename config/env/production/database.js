@@ -1,3 +1,6 @@
+console.log('[STRAPI] Using PRODUCTION Postgres database config'); // <-- marker
+const parse = require('pg-connection-string').parse;
+// ... rest of your file unchanged ...
 const parse = require('pg-connection-string').parse;
 
 module.exports = ({ env }) => {
