@@ -1,20 +1,16 @@
+// Strapi v5
 module.exports = ({ env }) => ({
-  proxy: true,
+  proxy: true, // trust Render's X-Forwarded-* headers
   host: '0.0.0.0',
   port: env.int('PORT', 1337),
+  url: env('PUBLIC_URL', env('RENDER_EXTERNAL_URL', '')), // correct absolute URLs
 
-  // must be a full https URL or fall back to Render’s provided URL
-  url: env('PUBLIC_URL', env('RENDER_EXTERNAL_URL', '')),
-
-  app: {
-    // MUST be 4 comma-separated secrets (see generators below)
-    keys: env.array('APP_KEYS'),
-  },
+  app: { keys: env.array('APP_KEYS') },
 
   admin: {
     auth: {
       secret: env('ADMIN_JWT_SECRET'),
+      // v5 uses sessions; you already added these via config/admin.js (next section)
     },
-    // optional: remove if you haven't added sessions in admin.js
   },
 });

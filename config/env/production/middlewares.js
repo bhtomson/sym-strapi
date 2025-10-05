@@ -1,6 +1,6 @@
+// Strapi v5 uses the same middlewares config shape
 module.exports = [
-  // Run our coercion *before* Strapi's security/cookies
-  { name: 'global::force-https' },
+  { name: 'global::force-https' }, // our middleware runs first
 
   'strapi::errors',
   {
