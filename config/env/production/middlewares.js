@@ -1,4 +1,7 @@
 module.exports = [
+  // Run our coercion *before* Strapi's security/cookies
+  { name: 'global::force-https' },
+
   'strapi::errors',
   {
     name: 'strapi::security',
@@ -12,7 +15,7 @@ module.exports = [
   {
     name: 'strapi::cors',
     config: {
-      origin: ['https://sym-strapi.onrender.com'],
+      origin: [process.env.PUBLIC_URL || process.env.RENDER_EXTERNAL_URL],
       credentials: true,
     },
   },
