@@ -1,20 +1,24 @@
-// import type { Core } from '@strapi/strapi';
+// src/index.ts
+import type { Core } from '@strapi/strapi';
 
 export default {
-  /**
-   * An asynchronous register function that runs before
-   * your application is initialized.
-   *
-   * This gives you an opportunity to extend code.
-   */
-  register(/* { strapi }: { strapi: Core.Strapi } */) {},
+  register({ strapi }: { strapi: Core.Strapi }) {
+    // Ensure Koa trusts proxy headers in v5 (same as server.proxy.koa = true)
+    strapi.server.app.proxy = true;
 
-  /**
-   * An asynchronous bootstrap function that runs before
-   * your application gets started.
-   *
-   * This gives you an opportunity to set up your data model,
-   * run jobs, or perform some special logic.
-   */
-  bootstrap(/* { strapi }: { strapi: Core.Strapi } */) {},
+    // Debug: show which DB config file Strapi bundled
+    // (folder is the compiled app root when running on Render)
+    // You can remove this once things are stable.
+    try {
+      // eslint-disable-next-line no-console
+      console.log('=== BOOT cwd:', process.cwd());
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const fs = require('fs');
+      // eslint-disable-next-line no-console
+      console.log(
+        '=== DB CONFIG FILES IN ./config ===',
+        fs.readdirSync('./config').filter((f: string) => f.includes('database'))
+      );
+    } catch {}
+  },
 };
